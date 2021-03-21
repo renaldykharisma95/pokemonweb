@@ -1,0 +1,26 @@
+.image-field{
+    text-align: center;
+    width: 50%;
+    margin-bottom: 12px;
+}
+
+.img{
+    border: 1px solid grey;
+}
+
+.list-move{
+    height: 300px;
+    width: 50%;
+    overflow: scroll;
+    padding: 6px 0;
+}
+
+.stat-field{
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.table-text{
+    font-size: 15px;
+}
