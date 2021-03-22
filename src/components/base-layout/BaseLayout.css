@@ -13,6 +13,10 @@
     margin: 16px 0 16px 24px;
   }
 
+  .content{
+    padding: 0 50px;
+  }
+
   .layout{
       min-height: 100vh;
   }
@@ -20,4 +24,15 @@
   .footer{
       bottom: 0;
       text-align: center;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .site-layout-content {
+      padding: 0 0;
+      margin: 12px 0;
+    }
+
+    .content{
+      padding: 0 30px;
+    }
   }

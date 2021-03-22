@@ -10,7 +10,7 @@ export default function BaseLayout(props){
                 <Header>
                     <div className="logo"><Image src={logo} width={250} height={60}></Image></div>
                 </Header>
-                <Content style={{ padding: '0 50px' }}>
+                <Content className="content">
                     <div className="site-layout-content">
                         {props.children}
                     </div>

@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import Services from "../services"
-import { Image, Space, Tag, Button } from 'antd';
+import { Image, Space, Tag, Button, Grid } from 'antd';
 import { useHistory } from "react-router-dom";
 import './CardLayout.css';
+
+const { useBreakpoint } = Grid;
 
 export default function CardLayout({urlPokemon, namePokemon}){
 
     const isCollect = localStorage.getItem('COLLECTION_LIST');
+    const screens = useBreakpoint();
 
     const [pokemonImage, setPokemonImage] = useState('');
     const [pokemonWeight, setPokemonWeight] = useState('');
@@ -21,7 +24,6 @@ export default function CardLayout({urlPokemon, namePokemon}){
 
     const getCriteriaData = async(url) =>{
         const {data} = await serviceConnection().GetPokemonCriteria(url);
-        console.log('data: ', data);
         const {sprites, weight, abilities, height} = data;
         setPokemonImage(pokemonImage => pokemonImage = sprites);
         setPokemonWeight(pokemonWeight => pokemonWeight = weight);
@@ -45,23 +47,36 @@ export default function CardLayout({urlPokemon, namePokemon}){
     }
 
     return(
-        <div>
+        <div breakpoint="xs">
             <div className="content1">
-                <Image src={pokemonImage.front_default} width={90} height={90}></Image>
+                <Image src={pokemonImage.front_default} width={90} height={80}></Image><br />
+                {screens.xs ?
+                <div id="tag">
+                    <Space>    
+                        {pokemonAbilities.map((item, i) => (
+                            <Tag key={i} color="success">{item.ability.name}</Tag>
+                        ))}
+                    </Space>
+                </div> 
+                 : <></>
+                } 
                 <div>
                     <table>
                         <tbody>
-                            <tr>
-                                <td>Abilities</td>
-                                <td style={{padding: '0 15px'}}>:</td>
-                                <td>
-                                    <Space>
-                                        {pokemonAbilities.map((item, i) => (
-                                            <Tag key={i} color="success">{item.ability.name}</Tag>
-                                        ))}
-                                    </Space>
-                                </td>
-                            </tr>
+                            {
+                                screens.xs ? <></> :
+                                <tr>
+                                    <td>Abilities</td>
+                                    <td style={{padding: '0 15px'}}>:</td>
+                                    <td>
+                                        <Space>
+                                            {pokemonAbilities.map((item, i) => (
+                                                <Tag key={i} color="success">{item.ability.name}</Tag>
+                                            ))}
+                                        </Space>
+                                    </td>
+                                </tr>
+                            }
                             <tr>
                                 <td>Weight</td>
                                 <td style={{padding: '0 15px'}}>:</td>

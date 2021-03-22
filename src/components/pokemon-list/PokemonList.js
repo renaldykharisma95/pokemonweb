@@ -7,6 +7,7 @@ import {pageSizeDispatch, pageIndexDispatch, offsetDispatch} from "../../resourc
 import { useDispatch, useSelector } from 'react-redux';
 import CaughtList from "../pokemon-list-detail/CaughtList";
 import { useHistory } from "react-router-dom";
+import "./PokemonList.css";
 
 const { Option } = Select;
 export default function PokemonList(){
@@ -65,7 +66,7 @@ export default function PokemonList(){
         
     return(
         <div>
-            <div>
+            <div style={{display: 'flex', alignItems: 'center'}}>
                 <span>Show:</span>
                 <Select defaultValue={10} style={{ width: 120, margin: 8 }} onChange={pageChange}>
                     {
@@ -79,12 +80,12 @@ export default function PokemonList(){
                 <Button onClick={CaughtPage}>See your {dataCaughtList.length} pokemon</Button>
             </div>
             <List
-            grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+            grid={{ gutter: 1, xs: 1, sm: 2, md: 4, lg: 2, xl: 4, xxl: 3 }}
             dataSource = {dataList}
             renderItem = {
                 item =>(
                     <List.Item>
-                        <Card title={item.name} >
+                        <Card className="card" title={item.name} >
                             {
                                 <CardLayout urlPokemon={item.url}></CardLayout>
                             }

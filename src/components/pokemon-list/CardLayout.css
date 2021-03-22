@@ -3,3 +3,27 @@
     align-items: center; 
     align-self: center;
 }
+
+.ability-colon{
+    padding: 0 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    .content1{
+        display: block; 
+    }
+
+    #tag{
+        align-items: flex-start    
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .content1{
+        display: block; 
+    }
+
+    #tag{
+        align-items: flex-start    
+    }
+}

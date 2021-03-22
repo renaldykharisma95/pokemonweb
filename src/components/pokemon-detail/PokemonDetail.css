@@ -24,3 +24,35 @@
 .table-text{
     font-size: 15px;
 }
+
+.button-action{
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .image-field{
+        text-align: center;
+        width: 100%;
+        margin-bottom: 12px;
+    }
+
+    .button-action{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .list-move{
+        height: 300px;
+        width: 100%;
+        overflow: scroll;
+        padding: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .button-action{
+        width: 58%;
+        margin-bottom: 10px;
+    }
+}
