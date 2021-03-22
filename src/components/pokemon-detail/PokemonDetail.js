@@ -130,18 +130,18 @@ export default function PokemonDetail(){
             <Spin size="large" spinning={isLoad}>
             <Row>
                 <Col xs={24} xl={10}>
-                    <h1 style={{textTransform:'capitalize'}}>{isCollect === 'CAUGHT' ?  newNick : pokemonName}</h1>
                     <div className="image-field">
+                        <h1 style={{textTransform:'capitalize'}}>{isCollect === 'CAUGHT' ?  newNick : pokemonName}</h1>
                         <Image className="img" src={pokemonImage} width={280} height={280}></Image>
-                        <h2>{imageName === null ? '' : imageName}</h2>
-                    </div>
-                    {
+                        {
                         isCollect === 'CAUGHT' ?
                         <div>
                             <Button type="danger" onClick={deletePokemon} className="button-action">Delete this pokemon</Button>
-                        </div> : <div><Button type="primary" onClick={catchPokemon} className="button-action">Catch the pokemon</Button></div>
-                    }
-                    <Button type="default" onClick={back} className="button-action">Back</Button>
+                        </div> : <div><Button type="primary" onClick={catchPokemon} className="button-action">Catch the Pokemon!</Button></div>
+                        }
+                        <Button type="default" onClick={back} className="button-action">Back</Button>
+                    </div>
+                    
                 </Col>
                 <Col xs={24} xl={14}>
                     <h2>Stats</h2>

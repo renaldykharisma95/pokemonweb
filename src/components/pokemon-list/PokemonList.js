@@ -1,7 +1,7 @@
 import Services from "../services"
 import React, {useState, useEffect} from 'react';
 import { failResponse } from "../../resources/constants/Constant";
-import { List, Card, Select, Pagination, Button } from 'antd';
+import { List, Card, Select, Pagination, Button, Grid } from 'antd';
 import CardLayout from "./CardLayout";
 import {pageSizeDispatch, pageIndexDispatch, offsetDispatch} from "../../resources/redux/Actions";
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +10,10 @@ import { useHistory } from "react-router-dom";
 import "./PokemonList.css";
 
 const { Option } = Select;
+const { useBreakpoint } = Grid;
 export default function PokemonList(){
 
+    const screens = useBreakpoint();
     const pages = [10, 50, 100];
 
     const [dataList, setDataList] = useState([]);
@@ -65,7 +67,7 @@ export default function PokemonList(){
     }
         
     return(
-        <div>
+        <div breakpoint="xs">
             <div style={{display: 'flex', alignItems: 'center'}}>
                 <span>Show:</span>
                 <Select defaultValue={10} style={{ width: 120, margin: 8 }} onChange={pageChange}>
@@ -80,7 +82,7 @@ export default function PokemonList(){
                 <Button onClick={CaughtPage}>See your {dataCaughtList.length} pokemon</Button>
             </div>
             <List
-            grid={{ gutter: 1, xs: 1, sm: 2, md: 4, lg: 2, xl: 4, xxl: 3 }}
+            grid={{ gutter: 3, xs: 1, sm: 2, md: 2, lg: 2, xl: 4, xxl: 4 }}
             dataSource = {dataList}
             renderItem = {
                 item =>(
@@ -95,7 +97,7 @@ export default function PokemonList(){
             }>
             </List>
             <br/>
-            <Pagination style={{textAlign: 'center'}} defaultCurrent={pageIndex} total={dataCount} onChange={onPageChange} showSizeChanger={false}  />
+            <Pagination size={screens.xs ? 'small' : 'default'} style={{textAlign: 'center'}} defaultCurrent={pageIndex} total={dataCount} onChange={onPageChange} showSizeChanger={false}  />
         </div>
     )
 }

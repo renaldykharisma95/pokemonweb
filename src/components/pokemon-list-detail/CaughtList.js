@@ -18,7 +18,7 @@ export default function CaughtList(){
         <div>
             <Button style={{margin: '8px 0'}} onClick={listPage}>Back to pokemon list page</Button>
             <List
-            grid={{ gutter: 1, xs: 1, sm: 2, md: 4, lg: 2, xl: 4, xxl: 3 }}
+            grid={{ gutter: 1, xs: 1, sm: 2, md: 4, lg: 2, xl: 4, xxl: 4 }}
             dataSource = {dataList}
             renderItem = {
                 item =>(
