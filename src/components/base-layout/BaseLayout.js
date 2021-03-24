@@ -1,5 +1,8 @@
 import './BaseLayout.css';
-import { Layout, Image } from 'antd';
+import { Layout, Image, Card } from 'antd'
+import {
+    GithubOutlined
+  } from '@ant-design/icons';
 import logo from '../../pokemontext.png'
 
 const { Header, Content, Footer } = Layout;
@@ -15,6 +18,7 @@ export default function BaseLayout(props){
                         {props.children}
                     </div>
                 </Content>
+                <a style={{textAlign: 'center'}} href={"https://github.com/renaldykharisma/pokemonweb"}><h2><GithubOutlined /> Source Code</h2></a>
                 <Footer className="footer">Pokemon Website ©2021 Created by Renaldy Kharisma</Footer>
             </Layout>
         </div>
