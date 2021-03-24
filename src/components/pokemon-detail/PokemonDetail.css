@@ -30,6 +30,10 @@
     margin-bottom: 10px;
 }
 
+.title{
+    font-family: 'Press Start 2P', cursive;
+}
+
 @media only screen and (max-width: 600px) {
     .image-field{
         text-align: center;
@@ -38,6 +42,7 @@
     }
 
     .button-action{
+        width: 93%;
         margin-bottom: 10px;
     }
 
@@ -49,9 +54,16 @@
     }
 }
 
-@media only screen and (max-width: 1600px) {
+@media only screen and (min-width: 600px) and (max-width: 1500px) {
     .button-action{
         width: 58%;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (min-width: 1500px) and (max-width: 1700px) {
+    .button-action{
+        width: 48%;
         margin-bottom: 10px;
     }
 }

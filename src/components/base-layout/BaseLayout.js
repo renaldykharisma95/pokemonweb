@@ -7,8 +7,8 @@ export default function BaseLayout(props){
     return(
         <div>
             <Layout className="layout">
-                <Header>
-                    <div className="logo"><Image src={logo} width={250} height={60}></Image></div>
+                <Header className="header">
+                    <div className="logo"><Image src={logo} width={250} height={70}></Image></div>
                 </Header>
                 <Content className="content">
                     <div className="site-layout-content">

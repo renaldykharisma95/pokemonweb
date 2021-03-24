@@ -8,6 +8,15 @@
     height: 31px;
     margin: 16px 24px 16px 0;
   }
+
+  .logo{
+    text-align: center;
+  }
+
+  .header{
+    height: 70px;
+  }
+
   .ant-row-rtl #components-layout-demo-top .logo {
     float: right;
     margin: 16px 0 16px 24px;
@@ -33,6 +42,6 @@
     }
 
     .content{
-      padding: 0 30px;
+      padding: 0 24px;
     }
   }

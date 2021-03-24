@@ -82,7 +82,7 @@ export default function PokemonList(){
                 <Button onClick={CaughtPage}>See your {dataCaughtList.length} pokemon</Button>
             </div>
             <List
-            grid={{ gutter: 3, xs: 1, sm: 2, md: 2, lg: 2, xl: 4, xxl: 4 }}
+            grid={{ gutter: 3, xs: 1, sm: 2, md: 2, lg: 2, xl: 3, xxl: 4 }}
             dataSource = {dataList}
             renderItem = {
                 item =>(
@@ -97,7 +97,7 @@ export default function PokemonList(){
             }>
             </List>
             <br/>
-            <Pagination size={screens.xs ? 'small' : 'default'} style={{textAlign: 'center'}} defaultCurrent={pageIndex} total={dataCount} onChange={onPageChange} showSizeChanger={false}  />
+            <Pagination size={screens.xs ? 'small' : 'default'} style={{textAlign: 'center'}} defaultCurrent={1} current={pageIndex} total={dataCount} onChange={onPageChange} showSizeChanger={false}  />
         </div>
     )
 }

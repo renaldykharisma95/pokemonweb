@@ -34,7 +34,7 @@ export const Reducer = (state = GlobalState, action) =>{
             state.catchedPokemon = payload;
             state.newArrPokemon = [...state.newArrPokemon, state.catchedPokemon];
             return{
-                ...state,
+                state,
                 newArrPokemon: state.newArrPokemon
             }
         }

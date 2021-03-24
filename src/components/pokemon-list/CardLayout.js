@@ -50,33 +50,16 @@ export default function CardLayout({urlPokemon, namePokemon}){
         <div breakpoint="xs">
             <div className="content1">
                 <Image src={pokemonImage.front_default} width={90} height={80}></Image><br />
-                {screens.xs ?
-                <div id="tag">
-                    <Space>    
-                        {pokemonAbilities.map((item, i) => (
-                            <Tag key={i} color="success">{item.ability.name}</Tag>
-                        ))}
-                    </Space>
-                </div> 
-                 : <></>
-                } 
                 <div>
+                    <div id="tag">
+                        <Space>    
+                            {pokemonAbilities.map((item, i) => (
+                                <Tag key={i} color="success">{item.ability.name}</Tag>
+                            ))}
+                        </Space>
+                    </div> 
                     <table>
                         <tbody>
-                            {
-                                screens.xs ? <></> :
-                                <tr>
-                                    <td>Abilities</td>
-                                    <td style={{padding: '0 15px'}}>:</td>
-                                    <td>
-                                        <Space>
-                                            {pokemonAbilities.map((item, i) => (
-                                                <Tag key={i} color="success">{item.ability.name}</Tag>
-                                            ))}
-                                        </Space>
-                                    </td>
-                                </tr>
-                            }
                             <tr>
                                 <td>Weight</td>
                                 <td style={{padding: '0 15px'}}>:</td>

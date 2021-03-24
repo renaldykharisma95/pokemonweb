@@ -1,16 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import Services from "../services";
-import { Row, Col, Image, List, Button, Progress, Space, Tag, Modal, Input, Spin } from 'antd';
+import { Row, Col, Image, List, Button, Progress, Space, Tag, Modal, Input, Spin, Grid } from 'antd';
 import './PokemonDetail.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import {catchPokemonDispatch, deletePokemonDispatch} from '../../resources/redux/Actions';
+import {catchPokemonDispatch, deletePokemonDispatch, pageIndexDispatch, offsetDispatch, pageSizeDispatch} from '../../resources/redux/Actions';
 import { failResponse, successResponse } from '../../resources/constants/Constant';
 
+const { useBreakpoint } = Grid;
 export default function PokemonDetail(){
 
     const history = useHistory();
     const dispatch = useDispatch();
+    const screens = useBreakpoint();
+
+    let pageIndex = useSelector(state => state.pageIndex);
+    let pageSize = useSelector(state => state.pageSize)
+    let offset = useSelector(state => state.offset);
 
     const url = localStorage.getItem('URL_DETAIL');
     const isCollect = localStorage.getItem('COLLECTION_LIST');
@@ -31,6 +37,7 @@ export default function PokemonDetail(){
     const [isSuccessCaught, setSuccessCaught] = useState(false);
     const [newName, setNewName] = useState('');
     const [isLoad, setIsLoad] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
 
     const catchedPokemon = useSelector(state => state.newArrPokemon);
 
@@ -57,6 +64,7 @@ export default function PokemonDetail(){
 
     const back = () =>{
         localStorage.removeItem('URL_DETAIL');
+        dispatch(pageIndexDispatch(pageIndex=1), offsetDispatch(offset = 0), pageSizeDispatch(pageSize=10));
         isCollect === 'CAUGHT' ? history.push('/caught-list') : history.push('/');
     }
 
@@ -69,11 +77,12 @@ export default function PokemonDetail(){
             setTimeout(() =>{
                 if(Math.random() < 0.5){
                     setSuccessCaught(isSuccessCaught => isSuccessCaught = true);
-                }else{
+                }
+                else{
                     Modal.error({content: failResponse.failGetPokemon});
                 }
                 setIsLoad(false);
-            }, 2000);
+            }, 400);
         });
     }
 
@@ -101,9 +110,14 @@ export default function PokemonDetail(){
 
     const handleCancel = () =>{
         setSuccessCaught(isSuccessCaught => isSuccessCaught = false);
+        setIsDelete(isDelete => isDelete = false);
     }
 
     const deletePokemon = () =>{
+        setIsDelete(isDelete => isDelete = true);
+    }
+
+    const submitDelete = () => {
         let deleted = catchedPokemon.filter(x=>x.id !== idPokemon);
         dispatch(deletePokemonDispatch(deleted));
         localStorage.removeItem('URL_DETAIL');
@@ -127,24 +141,39 @@ export default function PokemonDetail(){
                 </Space>
                 </div>
             </Modal>
+            <Modal title="" visible={isDelete} closable={false} onOk={submitDelete} onCancel={handleCancel}>
+                <div style={{textAlign: 'center'}}>
+                    <Image src={pokemonImage} width={100} height={100}></Image>
+                    <h1 style={{textTransform:'capitalize'}}>{newNick}</h1>
+                    <h4>Delete this pokemon?</h4>
+                </div>
+            </Modal>
             <Spin size="large" spinning={isLoad}>
             <Row>
                 <Col xs={24} xl={10}>
                     <div className="image-field">
-                        <h1 style={{textTransform:'capitalize'}}>{isCollect === 'CAUGHT' ?  newNick : pokemonName}</h1>
+                        <h1 style={{textTransform:'capitalize'}} className="title">{isCollect === 'CAUGHT' ?  newNick : pokemonName}</h1>
                         <Image className="img" src={pokemonImage} width={280} height={280}></Image>
                         {
-                        isCollect === 'CAUGHT' ?
-                        <div>
-                            <Button type="danger" onClick={deletePokemon} className="button-action">Delete this pokemon</Button>
-                        </div> : <div><Button type="primary" onClick={catchPokemon} className="button-action">Catch the Pokemon!</Button></div>
+                            screens.xs ? 
+                            <Space style={{margin: '10px 0'}}>
+                            {pokemonAbilities.map((item, i) => (
+                                <Tag key={i} color="green">{item.ability.name}</Tag>
+                            ))}
+                            </Space> : <> </>
+                        }
+                        {
+                            isCollect === 'CAUGHT' ?
+                            <div>
+                                <Button type="danger" onClick={deletePokemon} className="button-action">Delete this pokemon</Button>
+                            </div> : <div><Button type="primary" onClick={catchPokemon} className="button-action">Catch the Pokemon!</Button></div>
                         }
                         <Button type="default" onClick={back} className="button-action">Back</Button>
                     </div>
                     
                 </Col>
                 <Col xs={24} xl={14}>
-                    <h2>Stats</h2>
+                    <h2 className="title">Stats</h2>
                     {
                         pokemonStat.map((val, i) => (
                             <div key={i} className="stat-field">
@@ -161,7 +190,7 @@ export default function PokemonDetail(){
                         ))
                     }
                     <br />
-                    <h2>Detail</h2>
+                    <h2 className="title">Detail</h2>
                     <table>
                         <tbody>
                             <tr style={{height: '30px'}}>
@@ -189,17 +218,20 @@ export default function PokemonDetail(){
                                     {baseExperience}
                                 </td>
                             </tr>
-                            <tr style={{height: '30px'}}>
-                            <td className="table-text">Abilities</td>
-                                <td style={{padding: '0 15px'}}>:</td>
-                                <td>
-                                    <Space>
-                                        {pokemonAbilities.map((item, i) => (
-                                            <Tag key={i} color="green">{item.ability.name}</Tag>
-                                        ))}
-                                    </Space>
-                                </td>
-                            </tr>
+                            {
+                                !screens.xs ? 
+                                <tr style={{height: '30px'}}>
+                                    <td className="table-text">Abilities</td>
+                                    <td style={{padding: '0 15px'}}>:</td>
+                                    <td>
+                                        <Space>
+                                            {pokemonAbilities.map((item, i) => (
+                                                <Tag key={i} color="green">{item.ability.name}</Tag>
+                                            ))}
+                                        </Space>
+                                    </td>
+                                </tr> : <></>
+                            }
                             <tr style={{height: '30px'}}>
                                 <td className="table-text">Weight</td>
                                 <td style={{padding: '0 15px'}}>:</td>
@@ -217,7 +249,7 @@ export default function PokemonDetail(){
                         </tbody>
                     </table>
                     <br />
-                    <h2>Moves List</h2>
+                    <h2 className="title">Moves List</h2>
                         <div className="list-move">
                             <List
                                 itemLayout="horizontal"
