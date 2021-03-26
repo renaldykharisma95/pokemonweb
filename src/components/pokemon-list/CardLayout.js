@@ -10,6 +10,7 @@ export default function CardLayout({urlPokemon, namePokemon}){
 
     const isCollect = localStorage.getItem('COLLECTION_LIST');
     const screens = useBreakpoint();
+    const connectService = new Services();
 
     const [pokemonImage, setPokemonImage] = useState('');
     const [pokemonWeight, setPokemonWeight] = useState('');
@@ -17,13 +18,8 @@ export default function CardLayout({urlPokemon, namePokemon}){
     const [pokemonAbilities, setPokemonAbilities] = useState([]);
     const history = useHistory();
 
-    const serviceConnection = () =>{
-        const conn = new Services();
-        return conn;
-    }
-
     const getCriteriaData = async(url) =>{
-        const {data} = await serviceConnection().GetPokemonCriteria(url);
+        const {data} = await connectService.GetPokemonCriteria(url);
         const {sprites, weight, abilities, height} = data;
         setPokemonImage(pokemonImage => pokemonImage = sprites);
         setPokemonWeight(pokemonWeight => pokemonWeight = weight);

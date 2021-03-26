@@ -13,6 +13,7 @@ export default function PokemonDetail(){
     const history = useHistory();
     const dispatch = useDispatch();
     const screens = useBreakpoint();
+    const connectService = new Services();
 
     let pageIndex = useSelector(state => state.pageIndex);
     let pageSize = useSelector(state => state.pageSize)
@@ -41,13 +42,8 @@ export default function PokemonDetail(){
 
     const catchedPokemon = useSelector(state => state.newArrPokemon);
 
-    const serviceConnection = () =>{
-        const conn = new Services();
-        return conn;
-    }
-
     const getCriteriaData = async(url) =>{
-        const {data} = await serviceConnection().GetPokemonCriteria(url);
+        const {data} = await connectService.GetPokemonCriteria(url);
         const {id, name, sprites, types, species, base_experience, weight, abilities, height, moves, stats} = data;
         setPokemonId(idPokemon => idPokemon = id);
         setPokemonName(pokemonName => pokemonName = name);
@@ -90,11 +86,11 @@ export default function PokemonDetail(){
         setNewName(newName => {
             let arrValid = catchedPokemon.filter(x=>x.name === newName || x.id === idPokemon);
             if(arrValid.length > 0){
-                Modal.error({content: 'Please check again... maybe the name or collection is already exist'});
+                Modal.error({content: failResponse.failGetPokemon});
                 return;
             }
             if(newName === ''|| newName === undefined){
-                Modal.error({content: 'name field is empty'});
+                Modal.error({content: failResponse.emptyField});
                 return;
             }
             const newArr = {

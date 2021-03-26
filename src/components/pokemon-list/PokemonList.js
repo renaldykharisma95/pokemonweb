@@ -14,6 +14,7 @@ const { useBreakpoint } = Grid;
 export default function PokemonList(){
 
     const screens = useBreakpoint();
+    const connectService = new Services();
     const pages = [10, 50, 100];
 
     const [dataList, setDataList] = useState([]);
@@ -27,13 +28,8 @@ export default function PokemonList(){
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const serviceConnection = () =>{
-        const conn = new Services();
-        return conn;
-    }
-
     const getAllData = async(page, offset) =>{
-        const {data, status} = await serviceConnection().GetPokemonList(page, offset);
+        const {data, status} = await connectService.GetPokemonList(page, offset);
         if(status !== 200){
             alert(failResponse.failGetData);
         }

@@ -1,6 +1,6 @@
 export const failResponse = {
     failGetData: 'Cannot Get Data',
-    failGetPokemon: 'Catching the pokemon is fail, try again',
+    failGetPokemon: 'Please check again... maybe the name or collection is already exist',
     emptyField: 'Field cannot be empty!'
 } 
 
